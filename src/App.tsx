@@ -1,4 +1,3 @@
-import { Input } from '@chakra-ui/react'
 import './App.css'
 import { Provider } from './components/ui/provider'
 import { FormikProvider, useFormik } from 'formik'
@@ -6,6 +5,7 @@ import {
     CheckoutFormValues,
     validateSchema
 } from './components/validation/yup-schema'
+import { FormGroup } from './components/shared/form/form-group'
 
 function App() {
     const formik = useFormik<CheckoutFormValues>({
@@ -30,7 +30,7 @@ function App() {
         <Provider>
             <FormikProvider value={formik}>
                 <form onSubmit={formik.handleSubmit}>
-                    <Input />
+                    <FormGroup />
                 </form>
             </FormikProvider>
         </Provider>
