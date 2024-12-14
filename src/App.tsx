@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import { Provider } from './components/ui/provider'
+import { FormikProvider, useFormik } from 'formik'
+import {
+    CheckoutFormValues,
+    validateSchema
+} from './components/validation/yup-schema'
+import { FormGroup } from './components/shared/form/form-group'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const formik = useFormik<CheckoutFormValues>({
+        initialValues: {
+            name: '',
+            address: '',
+            floor: 1,
+            totalFloors: 1,
+            square: 0,
+            livingSquare: 0,
+            kitchenSquare: 0
+        },
+        validationSchema: validateSchema,
+        onSubmit: (values, { resetForm }) => {
+            console.log(values)
+            setTimeout(() => {
+                resetForm()
+            }, 1000 * 2)
+        }
+    })
+    return (
+        <Provider>
+            <FormikProvider value={formik}>
+                <form onSubmit={formik.handleSubmit}>
+                    <FormGroup />
+                </form>
+            </FormikProvider>
+        </Provider>
+    )
 }
 
-export default App;
+export default App
